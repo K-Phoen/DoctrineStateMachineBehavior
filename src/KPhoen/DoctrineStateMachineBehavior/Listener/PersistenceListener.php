@@ -56,8 +56,12 @@ class PersistenceListener extends AbstractListener
             return;
         }
 
-        // update the state machine
+        // update the state machine if needed
         list($oldState, $newState) = $changes[$stateProperty];
-        $entity->getStateMachine()->jumpToState($newState);
+        $stateMachine = $entity->getStateMachine();
+
+        if ($stateMachine->getCurrentState()->getName() !== $newState) {
+            $stateMachine->jumpToState($newState);
+        }
     }
 }
