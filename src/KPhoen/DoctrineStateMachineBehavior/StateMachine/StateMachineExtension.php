@@ -4,7 +4,6 @@ namespace KPhoen\DoctrineStateMachineBehavior\StateMachine;
 
 use Finite\Exception\StateException;
 use Finite\State\StateInterface;
-use Finite\StateMachine\StateMachine as BaseStateMachine;
 use Finite\Transition\TransitionInterface;
 
 /**
@@ -15,7 +14,7 @@ use Finite\Transition\TransitionInterface;
  *
  * @author Kévin Gomez <contact@kevingomez.fr>
  */
-class StateMachine extends BaseStateMachine
+trait StateMachineExtension
 {
     protected $statePrecedence = array();
 
