@@ -6,6 +6,16 @@ use Finite\Event\FiniteEvents;
 use Finite\Event\TransitionEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 
+/**
+ * Implements "life callbacks" for stateful entities.
+ * The available callbacks are the following (all are optionnal):
+ *  * onPre{Transition}: called before the transition {Transition} is applied ;
+ *  * onPost{Transition}: called after the transition {Transition} is applied ;
+ *  * onCan{Transition}: called when the state machine checks if {Transition}
+ *    can be applied.
+ *
+ * @author Kévin Gomez <contact@kevingomez.fr>
+ */
 class StatefulEntitiesCallbacksListener implements EventSubscriberInterface
 {
     public static function getSubscribedEvents()

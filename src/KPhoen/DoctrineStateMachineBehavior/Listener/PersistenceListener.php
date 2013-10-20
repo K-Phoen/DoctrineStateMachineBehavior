@@ -5,6 +5,11 @@ namespace KPhoen\DoctrineStateMachineBehavior\Listener;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 
+/**
+ * Checks that changes made on stateful entities are valid.
+ *
+ * @author Kévin Gomez <contact@kevingomez.fr>
+ */
 class PersistenceListener extends AbstractListener
 {
     protected $columnMapping = array();

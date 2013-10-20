@@ -4,6 +4,9 @@ namespace KPhoen\DoctrineStateMachineBehavior\Entity;
 
 use Finite\StateMachine\StateMachine;
 
+/**
+ * @author Kévin Gomez <contact@kevingomez.fr>
+ */
 trait StatefulTrait
 {
     protected $stateMachine;

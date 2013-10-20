@@ -5,6 +5,9 @@ namespace KPhoen\DoctrineStateMachineBehavior\Listener;
 use Doctrine\Common\EventSubscriber;
 use Finite\Factory\FactoryInterface;
 
+/**
+ * @author Kévin Gomez <contact@kevingomez.fr>
+ */
 abstract class AbstractListener implements EventSubscriber
 {
     protected $factory;

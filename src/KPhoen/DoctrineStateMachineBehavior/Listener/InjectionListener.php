@@ -5,6 +5,12 @@ namespace KPhoen\DoctrineStateMachineBehavior\Listener;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 
+/**
+ * Injects the state machines into stateful entities when they are loaded by
+ * Doctrine.
+ *
+ * @author Kévin Gomez <contact@kevingomez.fr>
+ */
 class InjectionListener extends AbstractListener
 {
     public function getSubscribedEvents()
