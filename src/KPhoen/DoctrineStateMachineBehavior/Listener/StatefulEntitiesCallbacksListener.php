@@ -44,11 +44,9 @@ class StatefulEntitiesCallbacksListener implements EventSubscriberInterface
         $object = $event->getStateMachine()->getObject();
         $result = $this->callCallback($object, 'onCan', $event->getTransition()->getName());
 
-        if (!is_bool($result)) {
-            return;
+        if (is_bool($result) && !$result) {
+            $event->reject();
         }
-
-        $event->setTransitionAllowed($result);
     }
 
     protected function callCallback($object, $callbackPrefix, $transitionName)
