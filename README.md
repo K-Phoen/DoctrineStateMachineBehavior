@@ -1,4 +1,4 @@
-DoctrineStateMachineBehavior
+DoctrineStateMachineBehavior [![Build Status](https://travis-ci.org/K-Phoen/DoctrineStateMachineBehavior.png)](https://travis-ci.org/K-Phoen/DoctrineStateMachineBehavior)
 ============================
 
 Doctrine2 behavior adding a finite state machine in your entities.
