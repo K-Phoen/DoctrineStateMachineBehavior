@@ -28,13 +28,13 @@ trait StateMachineExtension
         $transitionName = $transition instanceof TransitionInterface ? $transition->getName() : $transition;
         $transitionObject = $this->getTransition($transitionName);
 
-        if (!isset($this->statePrecedence[$transition->getState()])) {
-            $this->statePrecedence[$transition->getState()] = array();
+        if (!isset($this->statePrecedence[$transitionObject->getState()])) {
+            $this->statePrecedence[$transitionObject->getState()] = array();
         }
 
-        $this->statePrecedence[$transition->getState()] = array_merge(
-            $this->statePrecedence[$transition->getState()],
-            $transition->getInitialStates()
+        $this->statePrecedence[$transitionObject->getState()] = array_merge(
+            $this->statePrecedence[$transitionObject->getState()],
+            $transitionObject->getInitialStates()
         );
     }
 
