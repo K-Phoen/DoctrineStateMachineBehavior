@@ -15,6 +15,15 @@ $ php composer.phar require 'kphoen/doctrine-state-machine:@stable'
 ```
 
 
+## Tests
+
+Just launch the following command:
+
+```
+$ ./bin/phpspec run
+```
+
+
 ## License
 
 This behavior is released under the MIT license.
