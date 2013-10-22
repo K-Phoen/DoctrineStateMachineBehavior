@@ -30,13 +30,13 @@ class StatefulEntitiesCallbacksListener implements EventSubscriberInterface
     public function onPostTransition(TransitionEvent $event)
     {
         $object = $event->getStateMachine()->getObject();
-        $this->callCallback($object, 'onPost', $event->getTransition()->getName());
+        $this->callCallback($object, 'post', $event->getTransition()->getName());
     }
 
     public function onPreTransition(TransitionEvent $event)
     {
         $object = $event->getStateMachine()->getObject();
-        $this->callCallback($object, 'onPre', $event->getTransition()->getName());
+        $this->callCallback($object, 'pre', $event->getTransition()->getName());
     }
 
     public function onTestTransition(TransitionEvent $event)
