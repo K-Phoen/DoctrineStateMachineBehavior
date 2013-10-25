@@ -55,9 +55,12 @@ trait StatefulTrait
     public function __call($method, $arguments)
     {
         $transitions = array_flip($this->stateMachine->getTransitions());
+        $states = array_flip($this->stateMachine->getStates());
 
         if (substr($method, 0, 3) === 'can' && isset($transitions[strtolower(substr($method, 3))])) {
             return $this->stateMachine->can(strtolower(substr($method, 3)));
+        } elseif (substr($method, 0, 2) === 'is' && isset($states[strtolower(substr($method, 2))])) {
+            return $this->stateMachine->getCurrentState()->getName() === strtolower(substr($method, 2));
         } elseif (isset($transitions[$method])) {
             $this->stateMachine->apply($method);
         }
