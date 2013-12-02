@@ -90,7 +90,7 @@ trait StateMachineExtension
             throw new StateException(sprintf('Can not jump from state "%s" to "%s".',$this->currentState->getName(), $state->getName()));
         }
 
-        $this->object->setFiniteState($state);
+        $this->object->setFiniteState($state->getName());
         $this->currentState = $state;
     }
 }
