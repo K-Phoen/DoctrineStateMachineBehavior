@@ -12,16 +12,19 @@ use spec\Fixtures\Entity\Article;
 
 class ExtendedStateMachineSpec extends ObjectBehavior
 {
+    function let(Article $article, EventDispatcherInterface $dispatcher)
+    {
+        $this->beConstructedWith($article, $dispatcher);
+    }
+
     function it_is_initializable()
     {
         $this->shouldImplement('Finite\StateMachine\StateMachineInterface');
         $this->shouldHaveType('Finite\StateMachine\StateMachine');
-        $this->shouldHaveType('Finite\StateMachine\ListenableStateMachine');
     }
 
-    function it_can_test_if_a_jump_is_valid(EventDispatcherInterface $dispatcher)
+    function it_can_test_if_a_jump_is_valid(Article $article, EventDispatcherInterface $dispatcher)
     {
-        $article = new Article();
         $this->initializeStateMachine($article, $dispatcher);
 
         // tests
@@ -30,9 +33,8 @@ class ExtendedStateMachineSpec extends ObjectBehavior
         $this->canJumpToState('s4')->shouldReturn(false);
     }
 
-    function it_can_test_if_a_jump_is_valid_given_a_state_object(EventDispatcherInterface $dispatcher)
+    function it_can_test_if_a_jump_is_valid_given_a_state_object(Article $article, EventDispatcherInterface $dispatcher)
     {
-        $article = new Article();
         $this->initializeStateMachine($article, $dispatcher);
 
         // tests
@@ -41,9 +43,8 @@ class ExtendedStateMachineSpec extends ObjectBehavior
         $this->canJumpToState($this->getState('s4'))->shouldReturn(false);
     }
 
-    function it_can_jump_to_a_specific_state(EventDispatcherInterface $dispatcher)
+    function it_can_jump_to_a_specific_state(Article $article, EventDispatcherInterface $dispatcher)
     {
-        $article = new Article();
         $this->initializeStateMachine($article, $dispatcher);
 
         // tests
@@ -52,9 +53,8 @@ class ExtendedStateMachineSpec extends ObjectBehavior
         $this->getCurrentState()->getName()->shouldBe('s2');
     }
 
-    function it_can_jump_to_a_specific_state_given_a_state_object(EventDispatcherInterface $dispatcher)
+    function it_can_jump_to_a_specific_state_given_a_state_object(Article $article, EventDispatcherInterface $dispatcher)
     {
-        $article = new Article();
         $this->initializeStateMachine($article, $dispatcher);
 
         // tests
@@ -76,9 +76,6 @@ class ExtendedStateMachineSpec extends ObjectBehavior
         $this->addTransition('t23', 's2', 's3');
         $this->addTransition('t34', 's3', 's4');
         $this->addTransition('t42', 's4', 's2');
-
-        $this->setObject($article);
-        $this->setEventDispatcher($dispatcher);
 
         $this->initialize();
     }
