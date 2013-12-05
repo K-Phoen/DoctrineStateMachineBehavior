@@ -54,6 +54,10 @@ trait StatefulTrait
 
     public function __call($method, $arguments)
     {
+        if (null === $this->stateMachine) {
+            return;
+        }
+
         $transitions = array_flip($this->stateMachine->getTransitions());
         $states = array_flip($this->stateMachine->getStates());
 
