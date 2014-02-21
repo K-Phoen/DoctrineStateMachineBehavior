@@ -65,8 +65,12 @@ trait StatefulTrait
             return $this->stateMachine->can(strtolower(substr($method, 3)));
         } elseif (substr($method, 0, 2) === 'is' && isset($states[strtolower(substr($method, 2))])) {
             return $this->stateMachine->getCurrentState()->getName() === strtolower(substr($method, 2));
+        } elseif ('apply' === $method) {
+            return $this->stateMachine->apply($arguments[0]);
         } elseif (isset($transitions[$method])) {
-            $this->stateMachine->apply($method);
+            return $this->stateMachine->apply($method);
         }
+        
+        throw new \BadMethodCallException(sprintf('The method "::%s()" on class "%s" does not exist.', $method, get_class($this)));
     }
 }
