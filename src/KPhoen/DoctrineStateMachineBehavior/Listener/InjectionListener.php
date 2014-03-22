@@ -2,6 +2,7 @@
 
 namespace KPhoen\DoctrineStateMachineBehavior\Listener;
 
+use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 
@@ -24,7 +25,7 @@ class InjectionListener extends AbstractListener
     {
         $entity = $eventArgs->getEntity();
         $em = $eventArgs->getEntityManager();
-        $classMetadata = $em->getClassMetadata(get_class($entity));
+        $classMetadata = $em->getClassMetadata(ClassUtils::getClass($entity));
 
         if (!$this->isEntitySupported($classMetadata->reflClass)) {
             return;

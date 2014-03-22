@@ -2,6 +2,7 @@
 
 namespace KPhoen\DoctrineStateMachineBehavior\Listener;
 
+use Doctrine\Common\Util\ClassUtils;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 
@@ -42,13 +43,13 @@ class PersistenceListener extends AbstractListener
         $entity = $eventArgs->getEntity();
         $em = $eventArgs->getEntityManager();
         $uow = $em->getUnitOfWork();
-        $classMetadata = $em->getClassMetadata(get_class($entity));
+        $classMetadata = $em->getClassMetadata(ClassUtils::getClass($entity));
 
         if (!$this->isEntitySupported($classMetadata->reflClass)) {
             return;
         }
 
-        $stateProperty = $this->columnMapping[get_class($entity)];
+        $stateProperty = $this->columnMapping[ClassUtils::getClass($entity)];
 
         // make sure the entity is initialized
         $this->injectStateMachine($entity);
