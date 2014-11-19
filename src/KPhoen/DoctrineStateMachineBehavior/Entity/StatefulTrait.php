@@ -51,6 +51,17 @@ trait StatefulTrait
     {
         return $this->stateMachine->can($transition);
     }
+    
+    /**
+     * 
+     * @param string $transition to be applied
+     * 
+     * @return mixed
+     */
+    public function apply($transition)
+    {
+        return $this->stateMachine->apply($transition);
+    }
 
     public function __call($method, $arguments)
     {
@@ -65,8 +76,6 @@ trait StatefulTrait
             return $this->stateMachine->can(strtolower(substr($method, 3)));
         } elseif (substr($method, 0, 2) === 'is' && isset($states[strtolower(substr($method, 2))])) {
             return $this->stateMachine->getCurrentState()->getName() === strtolower(substr($method, 2));
-        } elseif ('apply' === $method) {
-            return $this->stateMachine->apply($arguments[0]);
         } elseif (isset($transitions[$method])) {
             return $this->stateMachine->apply($method);
         }
