@@ -2,6 +2,7 @@
 
 namespace KPhoen\DoctrineStateMachineBehavior\Listener;
 
+use Doctrine\Common\Inflector\Inflector;
 use Finite\Event\FiniteEvents;
 use Finite\Event\TransitionEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -51,7 +52,7 @@ class StatefulEntitiesCallbacksListener implements EventSubscriberInterface
 
     protected function callCallback($object, $callbackPrefix, $transitionName)
     {
-        $methodName = $callbackPrefix.ucfirst($transitionName);
+        $methodName = $callbackPrefix.ucfirst(Inflector::camelize($transitionName));
 
         if (!method_exists($object, $methodName)) {
             return;
