@@ -43,13 +43,29 @@ class PersistenceListener extends AbstractListener
         $entity = $eventArgs->getEntity();
         $em = $eventArgs->getEntityManager();
         $uow = $em->getUnitOfWork();
-        $classMetadata = $em->getClassMetadata(ClassUtils::getClass($entity));
+        $className = ClassUtils::getClass($entity);
+        $classMetadata = $em->getClassMetadata($className);
+        $reflClass = $classMetadata->getReflectionClass();
+        $stateProperty = null;
 
-        if (!$this->isEntitySupported($classMetadata->reflClass)) {
+        if (!$this->isEntitySupported($reflClass)) {
             return;
         }
 
-        $stateProperty = $this->columnMapping[ClassUtils::getClass($entity)];
+        //find mapping for the entity class
+        if (array_key_exists($className, $this->columnMapping)) {
+            $stateProperty = $this->columnMapping[$className];
+        }
+        else {
+            //check if there is a mapping for a parent class
+            while ($parent = $reflClass->getParentClass()) {
+                $parentClassName = $parent->getName();
+                if (array_key_exists($parentClassName, $this->columnMapping)) {
+                    $stateProperty = $this->columnMapping[$parentClassName];
+                    break;
+                }
+            }
+        }
 
         // make sure the entity is initialized
         $this->injectStateMachine($entity);
