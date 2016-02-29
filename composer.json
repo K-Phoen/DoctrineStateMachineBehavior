@@ -28,6 +28,6 @@
         "bin-dir": "bin"
     },
     "autoload": {
-        "psr-0": { "KPhoen\\": "src/", "spec\\Fixtures": "" }
+        "psr-4": { "KPhoen\\DoctrineStateMachineBehavior\\": "src/", "spec\\Fixtures\\": "spec/Fixtures" }
     }
 }
